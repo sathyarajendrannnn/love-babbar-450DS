@@ -5,5 +5,17 @@ class Solution(object):
         while left < right:
             s[left], s[right] = s[right], s[left]
             left, right = left + 1, right - 1
-
-        
+--------------------------------------------------------------------------------------
+        ##  Mathematical Logic with Example
+Let's consider an example where s = ['h', 'e', 'l', 'l', 'o'].
+Initial State:
+left = 0, right = 4
+s = ['h', 'e', 'l', 'l', 'o']
+First Iteration:
+Swap s[0] and s[4]: s = ['o', 'e', 'l', 'l', 'h']
+Update pointers: left = 1, right = 3
+Second Iteration:
+Swap s[1] and s[3]: s = ['o', 'l', 'l', 'e', 'h']
+Update pointers: left = 2, right = 2
+Termination:
+Now left is not less than right (both are 2), so we exit the loop.
