@@ -1,0 +1,17 @@
+Kth Max ---------------------
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        nums.sort()
+        return nums[-k]
+Explanation:
+first orderly sort the given
+then return the -k is kth largest number
+
+Kth Min-----------------------
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        nums.sort()
+        return nums[k-1]
+Explanation:
+first orderly sort the given
+then return the k-1 is kth smallest number
