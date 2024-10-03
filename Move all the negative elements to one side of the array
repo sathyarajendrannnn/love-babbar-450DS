@@ -1,0 +1,10 @@
+class Solution(object):
+    def segregateElements(self, nums):
+        positive = []
+        negative = []
+        for num in nums:
+            if num >= 0: 
+                positive.append(num)
+            else:
+                negative.append(num)
+        return positive + negative
