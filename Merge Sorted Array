@@ -1,0 +1,33 @@
+METHOD 1
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        for i in range(n):
+            nums1[m+i]=nums2[i]
+        return nums1.sort()
+
+Mathematical Example
+Let's illustrate this with a mathematical example:
+Given:
+nums1 = [1, 2, 3, 0, 0, 0] (where m = 3)
+nums2 = [2, 5, 6] (where n = 3)
+Step-by-Step Execution:
+Before Merging:
+Valid elements in nums1: [1, 2, 3]
+Valid elements in nums2: [2, 5, 6]
+Merging Process:
+The loop iterates over nums2:
+For i = 0: nums1[3 + 0] = nums2[0] → nums1[3] = 2 → nums1 becomes [1, 2, 3, 2, 0, 0]
+For i = 1: nums1[3 + 1] = nums2 → nums1[[1]](https://stackoverflow.com/questions/69339502/how-to-merge-two-sorted-array) = 5 → nums1 becomes [1, 2, 3, 2, 5, 0]
+For i = 2: nums1[3 + 2] = nums2[2] → nums1[5] = 6 → nums1 becomes [1, 2, 3, 2, 5, 6]
+Sorting the Merged Array:
+After the loop, nums1 contains [1, 2, 3, 2, 5, 6].
+The next step is to sort this array. The correct way to do this is to call nums1.sort(), which will rearrange the elements in non-decreasing order.
+Final Result:
+After sorting, nums1 will be [1, 2, 2, 3, 5, 6].
+
+METHOD 2----------------------------------------
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        for i in range(m, m + n): 
+            nums1[i] = nums2[i - m]  
+        nums1.sort() 
