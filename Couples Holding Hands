@@ -1,0 +1,43 @@
+class Solution(object):
+    def minSwapsCouples(self, row):
+        n = len(row) // 2
+        pos = {person: i for i, person in enumerate(row)}
+        swaps = 0
+        
+        for i in range(0, len(row), 2):
+            couple = row[i] ^ 1 
+            if row[i + 1] != couple:
+                partner_pos = pos[couple]
+                row[i + 1], row[partner_pos] = row[partner_pos], row[i + 1]
+                pos[row[partner_pos]] = partner_pos
+                pos[row[i + 1]] = i + 1
+                swaps += 1
+        
+        return swaps
+
+Mathematical Example-----------------------------------
+Let's consider an example to illustrate how the algorithm works:
+
+row = [0, 2, 1, 3]
+
+Step-by-Step Execution
+Initialization:
+      Number of couples: n = 2 (since there are 4 people).
+      Position mapping: pos = {0: 0, 2: 1, 1: 2, 3: 3}.
+First Iteration (i = 0):
+Current couple: first_person = row[0] = 0.
+Expected partner: couple = 0 ^ 1 = 1.
+Check if the partner is next to the first person: row[1] (2) != 1.
+Since they are not next to each other, find the partner's position: partner_pos = pos[1] = 2.
+Swap row[1] and row[2]:
+Before swap: [0, 2, 1, 3]
+After swap: [0, 1, 2, 3]
+Update positions: pos = {0: 0, 1: 1, 2: 2, 3: 3}.
+Increment swaps: swaps = 1.
+Second Iteration (i = 2):
+Current couple: first_person = row[2] = 2.
+Expected partner: couple = 2 ^ 1 = 3.
+Check if the partner is next to the first person: row[3] (3) == 3.
+Since they are already next to each other, no swap is needed.
+Final Output
+After processing all couples, the total number of swaps needed is 1.
