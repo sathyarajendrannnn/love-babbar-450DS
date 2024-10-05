@@ -1,0 +1,15 @@
+METHOD 1:
+class Solution(object):
+    def findDuplicate(self, nums):
+        nums.sort()
+        for i,v in enumerate(nums):
+            if v == nums[i+1]:
+                return v
+METHOD 2:
+class Solution(object):
+    def findDuplicate(self, nums):
+        for i in nums:
+            i=abs(i)
+            if nums[i]<0:
+                return abs(i)
+            nums[i]*=-1
