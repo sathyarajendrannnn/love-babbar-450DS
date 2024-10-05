@@ -1,0 +1,34 @@
+class Solution(object):
+    def nextPermutation(self, nums):
+        n = len(nums)
+        i = n - 2
+        while i >= 0 and nums[i] >= nums[i + 1]:
+            i -= 1
+        if i >= 0:
+            j = n - 1
+            while j > i and nums[j] <= nums[i]:
+                j -= 1
+            nums[i], nums[j] = nums[j], nums[i]
+        nums[i + 1:] = nums[i + 1:][::-1]
+
+Steps Explained with a Mathematical Example--------------
+
+      Let's take an example array: nums = [1, 2, 3].
+Finding the Pivot:
+Start from the end of the array and look for the first pair where the left number is less than the right number.
+Here, i starts at 1 (the second last index). We check:
+      nums[1] (2) < nums[2] (3) → Found the pivot at index 1.
+Finding the Successor:
+      Now, we need to find the largest index j such that nums[j] > nums[i].
+Start from the end again:
+      j starts at 2. We check:
+      nums[2] (3) > nums[1] (2) → Found the successor at index 2.
+Swapping:
+   Swap the pivot and the successor:
+       nums[1] and nums[2] are swapped:
+        Before swap: [1, 2, 3]
+        After swap: [1, 3, 2]
+Reversing the Suffix:
+       Finally, reverse the elements to the right of the pivot's original position (i + 1):
+       The suffix is , which remains the same when reversed.
+Final result: [1, 3, 2].
