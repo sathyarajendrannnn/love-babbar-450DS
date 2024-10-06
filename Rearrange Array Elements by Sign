@@ -1,0 +1,39 @@
+class Solution(object):
+    def rearrangeArray(self, nums):
+        positive = []
+        negative = []
+        for num in nums:
+            if num > 0:
+                positive.append(num)
+            else:
+                negative.append(num)
+        rearranged = []
+        for p, n in zip(positive, negative):
+            rearranged.append(p)
+            rearranged.append(n)
+        
+        return rearranged
+
+Given Input---------------------------------
+Suppose we have the following array:
+Input: nums = [3, 1, -2, -5, 2, -4]
+Step-by-Step Execution
+Separate Positive and Negative Integers:
+We will create two lists: one for positive integers and one for negative integers.
+Positive Integers:
+From nums, we extract 3, 1, and 2.
+So, positive = [3, 1, 2].
+Negative Integers:
+From nums, we extract -2, -5, and -4.
+So, negative = [-2, -5, -4].
+Interleave the Two Lists:
+We will now create a new list by alternating between the positive and negative integers, starting with a positive integer.
+The interleaving process will look like this:
+Start with the first positive integer 3, then take the first negative integer -2.
+Next, take the second positive integer 1, then the second negative integer -5.
+Finally, take the third positive integer 2, then the third negative integer -4.
+This results in the following arrangement:
+rearranged = [3, -2, 1, -5, 2, -4].
+Final Result
+The rearranged array that meets the specified conditions is:
+Output: [3, -2, 1, -5, 2, -4]
