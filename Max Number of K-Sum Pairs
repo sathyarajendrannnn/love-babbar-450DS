@@ -1,0 +1,35 @@
+class Solution(object):
+    def maxOperations(self, nums, k):
+        sorted_nums = sorted(nums)
+        left = 0
+        right = len(nums) - 1
+        count = 0
+
+        while left < right:
+            temp = sorted_nums[left] + sorted_nums[right]
+            if temp == k:
+                count += 1
+                left += 1
+                right -= 1
+            elif temp > k:
+                right -= 1
+            else:
+                left += 1
+        
+        return count
+
+Mathematical Example-----------------------------
+Let's illustrate this with a mathematical example:
+Input: nums = [1, 2, 3, 4, 3], k = 6
+Sorted Array: After sorting, sorted_nums = [1, 2, 3, 3, 4]
+Step-by-Step Execution:
+Initial Pointers: left = 0 (pointing to 1), right = 4 (pointing to 4)
+Sum: 1 + 4 = 5 (less than 6), move left to 1.
+Next Pointers: left = 1 (pointing to 2), right = 4 (pointing to 4)
+Sum: 2 + 4 = 6 (equals 6), increment count to 1, move both pointers (left to 2, right to 3).
+Next Pointers: left = 2 (pointing to 3), right = 3 (pointing to 3)
+Sum: 3 + 3 = 6 (equals 6), increment count to 2, move both pointers (left to 3, right to 2).
+Termination: Now left is not less than right, so the loop ends.
+Output: The total number of operations is 2.
+
+        
