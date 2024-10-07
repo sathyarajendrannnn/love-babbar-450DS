@@ -1,0 +1,95 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        if not nums:
+            return []
+
+        # Step 1: Find potential candidates
+        candidate1, candidate2, count1, count2 = None, None, 0, 0
+
+        for num in nums:
+            if num == candidate1:
+                count1 += 1
+            elif num == candidate2:
+                count2 += 1
+            elif count1 == 0:
+                candidate1, count1 = num, 1
+            elif count2 == 0:
+                candidate2, count2 = num, 1
+            else:
+                count1 -= 1
+                count2 -= 1
+
+        # Step 2: Verify the candidates
+        count1, count2 = 0, 0
+        for num in nums:
+            if num == candidate1:
+                count1 += 1
+            elif num == candidate2:
+                count2 += 1
+
+        result = []
+        n = len(nums)
+        if count1 > n // 3:
+            result.append(candidate1)
+        if count2 > n // 3:
+            result.append(candidate2)
+
+        return result
+
+
+
+Problem Statement--------------------------------------------
+Given an integer array, we want to find all elements that appear more than ⌊ n/3 ⌋ times.
+Example Input
+Consider the input array:
+nums = [3, 2, 3, 1, 1, 2, 1]
+Step-by-Step Breakdown
+Determine the Length of the Array:
+The length of the array n is 7.
+Calculate the threshold: ⌊ n/3 ⌋ = ⌊ 7/3 ⌋ = 2.
+Finding Candidates:
+We will use two variables to track potential candidates and their counts.
+Initialize:
+candidate1 = None
+candidate2 = None
+count1 = 0
+count2 = 0
+First Pass (Finding Candidates):
+Iterate through each number in nums:
+For num = 3:
+candidate1 is None, so set candidate1 = 3 and count1 = 1.
+For num = 2:
+candidate2 is None, so set candidate2 = 2 and count2 = 1.
+For num = 3:
+num matches candidate1, increment count1 to 2.
+For num = 1:
+num does not match either candidate. Decrement both counts: count1 = 1, count2 = 1.
+For num = 1:
+num does not match either candidate. Decrement both counts: count1 = 0, count2 = 0.
+For num = 2:
+num matches candidate2, increment count2 to 1.
+For num = 1:
+count1 is 0, so set candidate1 = 1 and count1 = 1.
+After the first pass, we have:
+candidate1 = 1, count1 = 1
+candidate2 = 2, count2 = 1
+Second Pass (Verifying Candidates):
+Reset counts:
+count1 = 0
+count2 = 0
+Iterate through nums again to count occurrences:
+For num = 3: No match.
+For num = 2: Increment count2 to 1.
+For num = 3: No match.
+For num = 1: Increment count1 to 1.
+For num = 1: Increment count1 to 2.
+For num = 2: Increment count2 to 2.
+For num = 1: Increment count1 to 3.
+Final counts:
+count1 = 3 (for candidate 1)
+count2 = 2 (for candidate 2)
+Check Against Threshold:
+Check if count1 > 2 (which is true for 1).
+Check if count2 > 2 (which is false for 2).
+Final Result:
+The only element that appears more than ⌊ n/3 ⌋ times is 1.
