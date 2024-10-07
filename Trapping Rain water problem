@@ -1,0 +1,45 @@
+class Solution(object):
+    def trap(self, height):
+        maxLeft = maxRight = 0
+        left = 0
+        right = len(height) - 1
+        answer = 0
+
+        while left <= right:
+            if height[left] <= height[right]:
+                if height[left] >= maxLeft:
+                    maxLeft = height[left]
+                    left += 1
+                    continue
+
+                answer += maxLeft - height[left]
+                left += 1
+                continue
+            
+            if height[right] >= maxRight:
+                maxRight = height[right]
+                right -= 1
+                continue
+            
+            answer += maxRight - height[right]
+            right -= 1
+        
+        return answer
+
+
+Mathematical Example
+Let's consider the input height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1].
+Initialization:
+maxLeft = 0, maxRight = 0, left = 0, right = 11, answer = 0.
+Processing:
+Move left to 1 → maxLeft becomes 1, no water trapped.
+Move left to 2 → maxLeft remains 1, water trapped = 1 - 0 = 1.
+Move left to 3 → maxLeft becomes 2, no water trapped.
+Move left to 4 → maxLeft remains 2, water trapped = 2 - 1 = 1.
+Move left to 5 → maxLeft remains 2, water trapped = 2 - 0 = 2.
+Move left to 6 → maxLeft remains 2, water trapped = 2 - 1 = 1.
+Move left to 7 → maxLeft becomes 3, no water trapped.
+Continue until the pointers meet.
+Final Calculation:
+Total water trapped = 1 + 1 + 2 + 1 + 1 = 6.
+Thus, the output for this input is 6, indicating that 6 units of rainwater can be trapped between the bars.
