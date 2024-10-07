@@ -1,0 +1,63 @@
+class Solution(object):
+    def splitArray(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        def canSplit(largest):
+            curSum = 0
+            subarrays = 0
+            for n in nums:
+                curSum += n
+                if curSum > largest:
+                    curSum = n
+                    subarrays += 1
+            return subarrays+1 <= k
+
+        l,r = max(nums), sum(nums)
+        res = r
+        while l<=r:
+            mid = (l+r)//2
+            if canSplit(mid):
+                res = mid
+                r = mid-1
+            else:
+                l = mid+1
+        return res
+
+
+Mathematical Example
+Let's consider the example with the input nums = [7, 2, 5, 10, 8] and k = 2.
+Initial Setup:
+l = max(nums) = 10
+r = sum(nums) = 32
+Binary Search Steps:
+First Iteration:
+Calculate mid = (10 + 32) // 2 = 21.
+Check if we can split with a maximum sum of 21:
+Subarrays: [7, 2, 5] (sum = 14), [10, 8] (sum = 18). Valid split: Yes.
+Update res = 21 and r = 20.
+Second Iteration:
+Calculate mid = (10 + 20) // 2 = 15.
+Check if we can split with a maximum sum of 15:
+Subarrays: [7, 2, 5] (sum = 14), [10] (sum = 10). Valid split: Yes.
+Update res = 15 and r = 14.
+Third Iteration:
+Calculate mid = (10 + 14) // 2 = 12.
+Check if we can split with a maximum sum of 12:
+Subarrays: [7, 2] (sum = 9), [5, 10] (sum = 15). Valid split: No.
+Update l = 13.
+Fourth Iteration:
+Calculate mid = (13 + 14) // 2 = 13.
+Check if we can split with a maximum sum of 13:
+Subarrays: [7, 2, 5] (sum = 14), [10] (sum = 10). Valid split: No.
+Update l = 14.
+Fifth Iteration:
+Calculate mid = (14 + 14) // 2 = 14.
+Check if we can split with a maximum sum of 14:
+Subarrays: [7, 2, 5] (sum = 14), [10] (sum = 10). Valid split: Yes.
+Update res = 14 and r = 13.
+Final Result:
+The search concludes with res = 15, which is the minimized largest sum of the split.
+Thus, the output for this input is 15, indicating that the best way to split the array into two subarrays results in a maximum sum of 15.
