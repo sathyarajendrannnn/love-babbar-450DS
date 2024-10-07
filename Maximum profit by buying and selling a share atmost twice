@@ -1,0 +1,71 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+
+        cost_1 = 10**6
+        cost_2 = 10**6
+
+        profit_1 = 0
+        profit_2 = 0
+
+        for price in prices:
+            cost_1 = min(cost_1, price)
+            profit_1 = max (profit_1, price - cost_1)
+
+            cost_2 = min(cost_2, price - profit_1)
+            profit_2 = max(profit_2, price - cost_2)
+
+        return profit_2
+
+
+Example Input-------------------------------------------------------------------------
+Consider the input array:
+prices = [3, 2, 6, 5, 0, 3]
+Step-by-Step Breakdown
+Initialization:
+Set cost_1 and cost_2 to a very high value (infinity) to represent the minimum costs for the first and second transactions.
+Set profit_1 and profit_2 to 0 to represent the maximum profits for the first and second transactions.
+python
+
+
+cost_1 = 10**6  # Represents the minimum cost for the first transaction
+cost_2 = 10**6  # Represents the minimum cost for the second transaction
+profit_1 = 0    # Maximum profit from the first transaction
+profit_2 = 0    # Maximum profit from the second transaction
+Iterate Through Prices:
+For each price in the prices array, update the costs and profits accordingly.
+Day 1 (price = 3):
+Update cost_1: cost_1 = min(10**6, 3) = 3
+Update profit_1: profit_1 = max(0, 3 - 3) = 0
+Update cost_2: cost_2 = min(10**6, 3 - 0) = 3
+Update profit_2: profit_2 = max(0, 3 - 3) = 0
+Day 2 (price = 2):
+Update cost_1: cost_1 = min(3, 2) = 2
+Update profit_1: profit_1 = max(0, 2 - 2) = 0
+Update cost_2: cost_2 = min(3, 2 - 0) = 2
+Update profit_2: profit_2 = max(0, 2 - 2) = 0
+Day 3 (price = 6):
+Update cost_1: cost_1 = min(2, 6) = 2
+Update profit_1: profit_1 = max(0, 6 - 2) = 4
+Update cost_2: cost_2 = min(2, 6 - 4) = 2
+Update profit_2: profit_2 = max(0, 6 - 2) = 4
+Day 4 (price = 5):
+Update cost_1: cost_1 = min(2, 5) = 2
+Update profit_1: profit_1 = max(4, 5 - 2) = 4
+Update cost_2: cost_2 = min(2, 5 - 4) = 2
+Update profit_2: profit_2 = max(4, 5 - 2) = 4
+Day 5 (price = 0):
+Update cost_1: cost_1 = min(2, 0) = 0
+Update profit_1: profit_1 = max(4, 0 - 0) = 4
+Update cost_2: cost_2 = min(2, 0 - 4) = -4
+Update profit_2: profit_2 = max(4, 0 - (-4)) = 4
+Day 6 (price = 3):
+Update cost_1: cost_1 = min(0, 3) = 0
+Update profit_1: profit_1 = max(4, 3 - 0) = 4
+Update cost_2: cost_2 = min(-4, 3 - 4) = -4
+Update profit_2: profit_2 = max(4, 3 - (-4)) = 10
+Final Result:
+After iterating through all prices, the maximum profit from at most two transactions is profit_2 = 10.
