@@ -1,0 +1,46 @@
+class Solution(object):
+    def threeSum(self, nums):
+        result = []
+        nums.sort()        
+        for i in range(len(nums)-2):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            left = i + 1
+            right = len(nums)-1
+
+            while left < right:
+                sum = nums[i]+nums[left]+nums[right]
+
+                if sum < 0:
+                    left += 1
+                elif sum > 0:
+                    right -= 1
+                else:
+                    result.append([nums[i],nums[left],nums[right]])
+
+                    while left < right and nums[left] == nums[left+1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right-1]:
+                        right -= 1
+                    left += 1  
+                    right -= 1 
+        return result
+
+
+Mathematical Example
+Let's consider an example with the input array nums = [-1, 0, 1, 2, -1, -4].
+Sorted Array: The sorted version of nums is [-4, -1, -1, 0, 1, 2].
+Iteration:
+For i = 0 (value -4):
+left starts at 1 (value -1), right starts at 5 (value 2).
+The sum is -4 + (-1) + 2 = -3, so move left to 2.
+The sum is -4 + (-1) + 2 = -3, so move left to 3.
+The sum is -4 + 0 + 2 = -2, so move left to 4.
+The sum is -4 + 1 + 2 = -1, so move left to 5.
+For i = 1 (value -1):
+left starts at 2, right at 5.
+The sum is -1 + (-1) + 2 = 0, so add [-1, -1, 2] to results.
+Move left to 3, right to 4.
+The sum is -1 + 0 + 1 = 0, so add [-1, 0, 1] to results.
+Continue until all elements are processed.
+Final Result: The unique triplets that sum to zero are [[-1, -1, 2], [-1, 0, 1]].
