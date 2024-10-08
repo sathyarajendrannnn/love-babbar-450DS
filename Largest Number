@@ -1,0 +1,43 @@
+class Solution(object):
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+
+        def compare(num1, num2):
+
+            op1 = int(num1 + num2)
+            op2 = int(num2 + num1)
+
+            if op1 > op2:
+                return -1
+
+            elif op1 < op2:
+                return 1
+            return 0
+        strNums = [str(num) for num in nums]
+        sortedNums = sorted(strNums, key=cmp_to_key(compare))
+        res = ""
+        for st in sortedNums:
+            res += st
+        return str(int(res))
+
+Mathematical Example Walkthrough---------------------------------------------
+Let's walk through the example nums = [3, 30, 34, 5, 9] to see how the algorithm works step by step.
+Convert to Strings:
+The input list is converted to strings: ["3", "30", "34", "5", "9"].
+Sorting:
+We compare pairs of strings based on their concatenated results:
+Compare "3" and "30":
+"330" > "303" → "3" comes first.
+Compare "3" and "34":
+"334" > "343" → "3" comes first.
+Compare "5" and "9":
+"59" < "95" → "9" comes first.
+Compare "30" and "34":
+"3034" < "3430" → "34" comes first.
+Continue this process for all pairs.
+Sorted Order: After sorting, we get ["9", "5", "34", "3", "30"].
+Concatenate: The final result is obtained by concatenating the sorted strings:
+Result: "9534330".
