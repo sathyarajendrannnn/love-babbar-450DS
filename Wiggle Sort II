@@ -1,0 +1,44 @@
+class Solution(object):
+    def wiggleSort(self, nums):
+        nums.sort()
+        
+        # Step 2: Create a new array for the result
+        n = len(nums)
+        result = [0] * n
+        
+        # Step 3: Fill the result array
+        # Fill odd indices with the larger half
+        left = (n + 1) // 2  # This is the start of the larger half
+        right = n  # This is the end of the array
+        
+        for i in range(n):
+            if i % 2 == 0:
+                result[i] = nums[left - 1]
+                left -= 1
+            else:
+                result[i] = nums[right - 1]
+                right -= 1
+        
+        # Step 4: Copy the result back to nums
+        for i in range(n):
+            nums[i] = result[i]
+
+
+Example Walkthrough
+Let’s walk through the example nums = [1, 5, 1, 1, 6, 4]:
+Sort the Array:
+Sorted array: [1, 1, 1, 4, 5, 6].
+Determine Left and Right Halves:
+Left half: [1, 1, 1] (smaller elements).
+Right half: [4, 5, 6] (larger elements).
+Interleave the Elements:
+Create the result array:
+Index 0 (even): Take from right half → result[0] = 4.
+Index 1 (odd): Take from left half → result[1] = 1.
+Index 2 (even): Take from right half → result[2] = 5.
+Index 3 (odd): Take from left half → result[3] = 1.
+Index 4 (even): Take from right half → result[4] = 6.
+Index 5 (odd): Take from left half → result[5] = 1.
+Resulting in result = [4, 1, 5, 1, 6, 1].
+Copy Back: Finally, copy result back to nums:
+The modified nums could be [1, 6, 1, 5, 1, 4] or any valid permutation that satisfies the condition.
