@@ -1,0 +1,73 @@
+class Solution(object):
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        left = 0
+        current_sum = 0
+        min_length = float('inf')
+
+        for right in range(len(nums)):
+            current_sum += nums[right]
+
+            while current_sum >= target:
+                min_length = min(min_length, right - left + 1)
+                current_sum -= nums[left]
+                left += 1
+
+        return min_length if min_length != float('inf') else 0
+
+        Example
+Input:
+target = 7
+nums = [2, 3, 1, 2, 4, 3]
+Expected Output: 2
+Step-by-Step Explanation
+Initialization:
+Set left = 0, current_sum = 0, and min_length = infinity.
+Iterate through the Array:
+We will use a right pointer to iterate through the array.
+Expand the Window:
+For each element at index right, we add nums[right] to current_sum.
+Iteration Details:
+Right = 0:
+current_sum = 0 + 2 = 2
+current_sum < target, continue.
+Right = 1:
+current_sum = 2 + 3 = 5
+current_sum < target, continue.
+Right = 2:
+current_sum = 5 + 1 = 6
+current_sum < target, continue.
+Right = 3:
+current_sum = 6 + 2 = 8
+current_sum >= target, enter the while loop.
+Update min_length = min(inf, 3 - 0 + 1) = 4.
+Shrink the window:
+current_sum = 8 - 2 = 6, left = 1.
+current_sum < target, exit the while loop.
+Right = 4:
+current_sum = 6 + 4 = 10
+current_sum >= target, enter the while loop.
+Update min_length = min(4, 4 - 1 + 1) = 4.
+Shrink the window:
+current_sum = 10 - 3 = 7, left = 2.
+current_sum >= target, update min_length = min(4, 4 - 2 + 1) = 3.
+Shrink the window:
+current_sum = 7 - 1 = 6, left = 3.
+current_sum < target, exit the while loop.
+Right = 5:
+current_sum = 6 + 3 = 9
+current_sum >= target, enter the while loop.
+Update min_length = min(3, 5 - 3 + 1) = 3.
+Shrink the window:
+current_sum = 9 - 2 = 7, left = 4.
+current_sum >= target, update min_length = min(3, 5 - 4 + 1) = 2.
+Shrink the window:
+current_sum = 7 - 4 = 3, left = 5.
+current_sum < target, exit the while loop.
+Final Result:
+After iterating through the entire array, we check min_length.
+Since min_length is 2, we return 2.
