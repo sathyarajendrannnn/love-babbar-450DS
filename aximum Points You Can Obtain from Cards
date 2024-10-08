@@ -1,0 +1,37 @@
+class Solution(object):
+    def maxScore(self, cardPoints, k):
+        n = len(cardPoints)
+        total_points = sum(cardPoints)
+        if k == n:          # If k equals to the number of cards, return total points
+            return total_points
+        min_points = float('inf')     # Calculate the minimum points in the window of size n-k
+        current_window_sum = sum(cardPoints[:n - k])
+
+        min_points = current_window_sum   # Initial minimum is the sum of the first (n-k) elements
+        
+        for i in range(n - k, n):
+            # Slide the window to the right
+            current_window_sum += cardPoints[i]  # Add the next card
+            current_window_sum -= cardPoints[i - (n - k)]  # Remove the leftmost card
+            
+            min_points = min(min_points, current_window_sum)
+        
+        # Maximum score is total points minus the minimum points of non-taken cards
+        return total_points - min_points
+
+Example Walkthrough
+Let's walk through the example cardPoints = [1, 2, 3, 4, 5, 6, 1] and k = 3:
+Total Points:
+Total = 1 + 2 + 3 + 4 + 5 + 6 + 1 = 22.
+Window Size:
+n - k = 7 - 3 = 4 (we will leave out 4 cards).
+Initial Minimum Points Calculation:
+For the first window of size 4: 1 + 2 + 3 + 4 = 10.
+Sliding the Window:
+Slide to the right:
+Remove 1, add 5: 2 + 3 + 4 + 5 = 14.
+Remove 2, add 6: 3 + 4 + 5 + 6 = 18.
+Remove 3, add 1: 4 + 5 + 6 + 1 = 16.
+Minimum points from the sliding window is 10.
+Maximum Score Calculation:
+Maximum Score = Total Points - Minimum Points = 22 - 10 = 12.
