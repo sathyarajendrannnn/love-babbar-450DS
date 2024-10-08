@@ -1,0 +1,50 @@
+import heapq
+from collections import Counter
+
+class Solution(object):
+    def reorganizeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        # Count the frequency of each character
+        char_count = Counter(s)
+        
+        # Create a max heap based on character frequency
+        max_heap = [(-count, char) for char, count in char_count.items()]
+        heapq.heapify(max_heap)
+        
+        result = []
+        prev_char = None
+        prev_count = 0
+        
+        while max_heap:
+            count, char = heapq.heappop(max_heap)
+            result.append(char)
+            
+            # If we had a previous character waiting to be added back
+            if prev_count < 0:
+                heapq.heappush(max_heap, (prev_count, prev_char))
+            
+            # Update the previous character and its count
+            prev_char = char
+            prev_count = count + 1  # Decrease the count since we used it
+            
+        # Join the result list into a string
+        result_str = ''.join(result)
+        
+        # Check if the result is valid
+        return result_str if len(result_str) == len(s) else ""
+
+Example Walkthrough
+Let's walk through the example s = "aab":
+Character Count:
+{'a': 2, 'b': 1}
+Max Heap:
+After creating the heap, it will contain: [(-2, 'a'), (-1, 'b')].
+Building the Result:
+Pop 'a' (count -2), append to result: result = ['a'], prev_char = 'a', prev_count = -1.
+Pop 'b' (count -1), append to result: result = ['a', 'b'], push back ('a', -1) into the heap.
+Pop 'a' (count -1), append to result: result = ['a', 'b', 'a'].
+Final Result:
+The result string is "aba", which is valid.
