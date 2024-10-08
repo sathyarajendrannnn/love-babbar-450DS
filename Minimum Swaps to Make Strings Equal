@@ -1,0 +1,30 @@
+class Solution(object):
+    def minimumSwap(self, s1, s2):
+        if len(s1) != len(s2):
+            return -1
+        
+        x_mismatch = 0
+        y_mismatch = 0
+        
+        for a, b in zip(s1, s2):
+            if a != b:
+                if a == 'x':
+                    x_mismatch += 1
+                else:
+                    y_mismatch += 1
+        
+        # Check if it's possible to make strings equal
+        if (x_mismatch + y_mismatch) % 2 != 0:
+            return -1
+        
+        # Each swap fixes 2 mismatches
+        swaps = x_mismatch // 2 + y_mismatch // 2
+        # If there is one 'x' and one 'y' left, we need one more swap
+        if x_mismatch % 2 == 1:
+            swaps += 2
+        
+        return swaps
+
+
+
+
